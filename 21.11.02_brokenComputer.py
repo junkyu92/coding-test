@@ -1,10 +1,5 @@
-# -*- coding: utf-8 -*-
-# UTF-8 encoding when using korean
-import math;
-in1 = input()
-in2 = input()
-in11 = in1.split(" ")
-in22 = in2.split(" ")
+in11 = input().split(" ")
+in22 = input().split(" ")
 
 sum = 1
 for i in range(int(in11[0])-1, 0, -1):
