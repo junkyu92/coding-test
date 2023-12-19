@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Main {
 
@@ -8,7 +7,7 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st;
-        List<Long> list = new ArrayList<>();
+        PriorityQueue<Long> pq = new PriorityQueue<>();
 
         int N = Integer.parseInt(br.readLine());
 
@@ -16,12 +15,16 @@ public class Main {
             st = new StringTokenizer(br.readLine());
             int count = st.countTokens();
             for (int j = 0; j < count; j++) {
-                list.add(Long.parseLong(st.nextToken()));
+                long num = Long.parseLong(st.nextToken());
+                if(pq.size() < N) pq.offer(num);
+                else if(pq.size()==N && pq.peek() < num) {
+                    pq.poll();
+                    pq.offer(num);
+                }
             }
         }
 
-        bw.write(list.stream().sorted(((o1, o2) -> Math.toIntExact(o2 - o1))).collect(Collectors.toList()).get(N-1)+"");
+        bw.write(pq.stream().min(Comparator.naturalOrder()).orElse(0L)+"");
         bw.flush();
     }
-
 }
